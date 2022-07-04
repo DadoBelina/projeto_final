@@ -14,8 +14,13 @@
             $this->load_template("categoria/listagem.php", $categorias);
         }
 
-        function inserir(){
-            
+        function add(){
+            echo "eu sou a função add do categoria";
+        }
+
+        function excluir($id){
+            $this->model->excluir($id);
+            header('location: ?c=categoria');
         }
     }
 

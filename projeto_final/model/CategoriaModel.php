@@ -9,24 +9,24 @@
         }
 
         function inserir($nome){
-            $sql = "INSERT INTO categoria (nome) values (?)";
+            $sql = 'INSERT INTO categoria (nome) values (?)';
             $comando = $this->conexao->prepare($sql);
-            $comando->bind_param("s", $nome);
-            return $comando->execute();
+            $comando->bind_param('s', $nome);
+            $comando->execute();
         }
 
         function excluir($id){
-            $sql = "DELETE FROM categoria WHERE idcategoria = ?";
+            $sql = 'DELETE FROM categoria WHERE idcategoria = ?';
             $comando = $this->conexao->prepare($sql);
-            $comando->bind_param("i", $id);
-            return $comando->execute();
+            $comando->bind_param('i', $id);
+            $comando->execute();
         }
 
         function atualizar($nome, $id){
-            $sql = "UPDATE categoria SET nome = ? WHERE idcategoria = ?";
+            $sql = 'UPDATE categoria SET nome = ? WHERE idcategoria = ?';
             $comando = $this->conexao->prepare($sql);
-            $comando->bind_param("si", $nome, $id);
-            return $comando->execute();
+            $comando->bind_param('si', $nome, $id);
+            $comando->execute();
         }
 
         function buscarTodos(){
