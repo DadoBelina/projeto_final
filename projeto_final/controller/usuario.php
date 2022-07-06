@@ -1,55 +1,60 @@
 <?php
 
-    require "model/CategoriaModel.php";
+    require "model/UsuarioModel.php";
     require "controller/Controller.php";
 
-    class Categoria{
+    class Usuario{
 
         function __construct(){
             session_start();
             if(!isset($_SESSION['usuario'])){
                 header('Location: ?c=restrito&m=login');
             }
-            $this->model = new CategoriaModel();
+            $this->model = new UsuarioModel();
         }
 
         function index(){
-            $categorias = ($this->model->buscarTodos());
+            $usuarios = ($this->model->buscarTodos());
             include "view/template/cabecalho.php";
             include "view/template/menu.php";
-            include "view/categoria/listagem.php";
+            include "view/usuario/listagem.php";
             include "view/template/rodape.php"; 
         }
 
         function add(){
             include "view/template/cabecalho.php";
             include "view/template/menu.php";
-            include "view/categoria/form.php";
+            include "view/usuario/form.php";
             include "view/template/rodape.php"; 
         }
 
         function excluir($id){
             $this->model->excluir($id);
-            header('Location: ?c=categoria');
+            header('Location: ?c=usuario');
         }
 
         function editar($id){
-            $categoria = $this->model->buscarPorId($id);
+            $usuario = $this->model->buscarPorId($id);
             include "view/template/cabecalho.php";
             include "view/template/menu.php";
-            include "view/categoria/form.php";
+            include "view/usuario/form.php";
             include "view/template/rodape.php"; 
 
         }
 
         function salvar(){
-            if(isset($_POST['categoria']) && !empty($_POST['categoria'])){
-                if(empty($_POST['idcategoria'])){
-                    $this->model->inserir($_POST['categoria']);
+            if(isset($_POST['login']) && !empty($_POST['login']) && !empty($_POST['senha'])){
+                if(empty($_POST['idusuario'])){
+
+                    if(!$this->model->buscarPorLogin($_POST['login'])){
+                        $this->model->inserir($_POST['login'], password_hash($_POST['senha'], PASSWORD_BCRYPT));
+                    }else{
+                        echo "Já existe um usuário com esse Login cadastrado!";
+                    }  
                 }else{
-                    $this->model->atualizar($_POST['categoria'], $_POST['idcategoria']);
+                    $this->model->atualizar($_POST['idusuario'], $_POST['login'], password_hash($_POST['senha'], PASSWORD_BCRYPT));
                 }
-                header('Location: ?c=categoria');
+                header('Location: ?c=usuario');
             }else{
                 echo "Occoreu um erro, pois os dados não foram enviados.";
             }

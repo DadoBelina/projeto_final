@@ -3,7 +3,9 @@
         Listagem de Categorias
     </h1>
     <hr>
-    <table class="table table-hover">
+    <a href="<?= base_url() . "?c=categoria&m=add" ?>" class="btn btn-success">Inserir Categoria</a>
+
+    <table class="table table-hover table-responsive">
         <thead>
             <tr>
                 <th class="col-10">Nome</th>
@@ -14,12 +16,13 @@
             <?php foreach($categorias as $categoria):?>
             <tr>
                 <td><?=$categoria['nome']; ?></td>
+
                 <td>
                     <a href="<?= base_url() ?>?c=categoria&m=excluir&id=<?=$categoria['idcategoria']; ?>" class="btn btn-danger" title="excluir">
                         <i class="fa-solid fa-trash-can"></i>
                     </a>
 
-                    <a href="htpp://" class="btn btn-primary" title="editar">
+                    <a href="<?= base_url() ?>?c=categoria&m=editar&id=<?=$categoria['idcategoria']; ?>" class="btn btn-primary" title="atualizar">
                         <i class="fa-solid fa-pen-to-square"></i>
                     </a>
             </td>
