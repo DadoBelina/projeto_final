@@ -2,7 +2,7 @@
 
     $base_url = 'http://localhost/Auro/projeto_final/index.php';
     $controlador_padrao = "home";
-    if(isset($_GET['c'])){
+
         $controller = ucfirst($_GET['c'] ?? $controlador_padrao);
         $path_controller = "controller/$controller.php";
 
@@ -25,7 +25,7 @@
                 }
         }
 
-    }
+
 
         function base_url(){
             global $base_url;
